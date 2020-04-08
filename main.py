@@ -2,7 +2,8 @@ import argparse
 import os
 import numpy as np
 from tqdm import tqdm 
-import tensorflow as tf
+import tensorflow.v1 as tf
+# from tensorflow.python.framework import ops
 import time
 
 from configs import ParseParams
@@ -97,7 +98,12 @@ if __name__ == "__main__":
     if random_seed is not None and random_seed > 0:
         prt.print_out("# Set random seed to %d" % random_seed)
         np.random.seed(random_seed)
-        tf.set_random_seed(random_seed)
-    tf.reset_default_graph()
+        tf.set_random_seed(random_seed) 
+        # https://github.com/tensorflow/tensorflow/issues/30070 
+        # tf.random.set_seed(random_seed)
+    tf.reset_default_graph() 
+    #https://github.com/keras-team/keras/issues/12783 
+    # Comments 
+    # ops.reset_default_graph()
 
     main(args, prt)
