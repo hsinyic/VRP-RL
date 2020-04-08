@@ -5,7 +5,13 @@ We use Reinforcement for solving Travelling Salesman Problem (TSP) and Vehicle R
 
 
 ## Paper
-Implementation of our paper: [Reinforcement Learning for Solving the Vehicle Routing Problem](https://arxiv.org/abs/1802.04240v2). 
+Implementation of paper: [Reinforcement Learning for Solving the Vehicle Routing Problem](https://arxiv.org/abs/1802.04240v2) and alternation to suit Vehicle Routing Problem for EV Public Transportation
+
+* Objectives:
+1. Upgrading from Tensorflow 1.X to 2.0 using automatic upgrade
+2. Custom vehicle battery sizing (small, medium, large) to account for various drive range  
+3. Test alternative problem without demand, meaning that the vehicle merely needs to travel from A to B, or modify existing "demand" to be proportional to the distance traveled. 
+4. Replace Attention Algorithm with other heuristics. 
 
 ## Dependencies
 
