@@ -2,7 +2,10 @@ import argparse
 import os
 import numpy as np
 from tqdm import tqdm 
-import tensorflow.v1 as tf
+import tensorflow as tf
+# import tensorflow.compat.v1 as tf
+# tf.disable_v2_behavior()
+
 # from tensorflow.python.framework import ops
 import time
 

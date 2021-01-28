@@ -1,5 +1,6 @@
 import tensorflow as tf
-
+# import tensorflow.compat.v1 as tf
+# tf.disable_v2_behavior()
 class AttentionVRPActor(object):
     """A generic attention module for the attention in vrp model"""
     def __init__(self, dim, use_tanh=False, C=10,_name='Attention',_scope=''):

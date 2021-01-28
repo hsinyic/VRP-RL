@@ -43,7 +43,7 @@ def create_TSP_dataset(
         # Generate a training set of size n_problems 
         data= rnd.uniform(0,1,size=(n_problems,n_nodes,2))
         np.savetxt(fname, data.reshape(-1, n_nodes*2))                         
-
+    
     return data
 
 class DataGenerator(object):

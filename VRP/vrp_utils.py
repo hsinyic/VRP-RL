@@ -1,5 +1,7 @@
 import numpy as np
 import tensorflow as tf
+# import tensorflow.compat.v1 as tf
+# tf.disable_v2_behavior()
 import os
 import warnings
 import collections
@@ -51,6 +53,10 @@ def create_VRP_dataset(
         data = np.concatenate([x,d],2)
         np.savetxt(fname, data.reshape(-1, n_nodes*3))
 
+    for i in data[0]:
+        print(list(i))
+
+    print(list(data[0]))
     return data
 
 class DataGenerator(object):
@@ -166,7 +172,7 @@ class Env(object):
         self.demand = self.input_data[:,:,-1]
 
         # modify the self.input_pnt and self.demand for beam search decoder
-#         self.input_pnt = tf.tile(self.input_pnt, [self.beam_width,1,1])
+        # self.input_pnt = tf.tile(self.input_pnt, [self.beam_width,1,1])
 
         # demand: [batch_size * beam_width, max_time]
         # demand[i] = demand[i+batchsize]
@@ -273,7 +279,7 @@ def reward_func(sample_solution):
                                                     #  [4,4]] ]
     """
     # make init_solution of shape [sourceL x batch_size x input_dim]
-
+    # print(sample_solution)
 
     # make sample_solution of shape [sourceL x batch_size x input_dim]
     sample_solution = tf.stack(sample_solution,0)

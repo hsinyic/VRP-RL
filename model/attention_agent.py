@@ -1,4 +1,6 @@
 import tensorflow as tf
+# import tensorflow.compat.v1 as tf
+# tf.disable_v2_behavior()
 import numpy as np
 import time
 from shared.embeddings import LinearEmbedding
@@ -99,6 +101,7 @@ class RLAgent(object):
 
         # start from depot
         idx = (env.n_nodes-1)*tf.ones([batch_size*beam_width,1])
+        print('idx', idx)
         action = tf.tile(input_pnt[:,env.n_nodes-1],[beam_width,1])
 
 
@@ -191,7 +194,6 @@ class RLAgent(object):
             state = env.step(idx,beam_parent)
             batched_idx = tf.concat([BatchSequence,idx],1)
 
-
             decoder_input = tf.expand_dims(tf.gather_nd(
                 tf.tile(encoder_emb_inp,[beam_width,1,1]), batched_idx),1)
 
@@ -202,6 +204,7 @@ class RLAgent(object):
 
             action = tf.gather_nd(tf.tile(input_pnt, [beam_width,1,1]), batched_idx )
             actions_tmp.append(action)
+            
 
         if decode_type=='beam_search':
             # find paths of the beam search
@@ -215,6 +218,7 @@ class RLAgent(object):
             actions = tmplst
         else: 
             actions = actions_tmp
+        
 
         R = self.reward_func(actions)            
 
@@ -312,7 +316,6 @@ class RLAgent(object):
     def evaluate_single(self,eval_type='greedy'):
         start_time = time.time()
         avg_reward = []
-
         if eval_type == 'greedy':
             summary = self.val_summary_greedy
         elif eval_type == 'beam_search':
@@ -337,8 +340,17 @@ class RLAgent(object):
 
             # sample decode
             if step % int(self.args['log_interval']) == 0:
+                print('what')
+                print(actions)
+                # print('actions', len(actions[0][0]))
+                # for i in actions:
+                #     print(i[0])
+                # 70 by 10 by 
+                # for i in actions:
+                #     print(i[0])
                 example_output = []
                 example_input = []
+                
                 for i in range(self.env.n_nodes):
                     example_input.append(list(batch[0, i, :]))
                 for idx, action in enumerate(actions):
